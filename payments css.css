@@ -1,0 +1,130 @@
+/* General Reset and Base Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+    transition: background 1s ease;
+}
+
+/* Heading */
+h1 {
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    text-align: center;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    animation: fadeIn 1s ease-out;
+}
+
+/* Payment Container */
+.payment-container {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 30px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+    animation: slideUp 1s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+}
+
+/* Info Fields */
+p {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    align-self: flex-start;
+}
+
+/* Labels and Inputs */
+label {
+    margin-top: 15px;
+    display: block;
+    width: 100%;
+    font-weight: bold;
+    font-size: 0.95rem;
+    text-align: left;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px 12px;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+input::placeholder {
+    color: #ccc;
+}
+
+input:focus, select:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.02);
+}
+
+/* Pay Button */
+#payBtn {
+    background-color: #00c9a7;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#payBtn:hover {
+    background-color: #00bfa0;
+    transform: scale(1.05);
+}
+
+/* Hidden Class */
+.hidden {
+    display: none;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Design */
+@media (max-width: 500px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .payment-container {
+        padding: 20px;
+        width: 95%;
+    }
+}

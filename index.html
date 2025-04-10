@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Mania</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Movie <span>Mania</span>.com</div>
+        <input type="text" class="search" placeholder="Search for Movies, Events, Plays, Sports and Activities">
+        <div class="location">Coimbatore ▼</div>
+        <button class="sign-in">Sign in</button>
+        <div class="menu">☰</div>
+    </nav>
+    <div class="nav-links">
+        <a href="#first5">Movies</a>
+        <a href="#second5">Streamings</a>
+        <a href="#third5">Upcoming Movies</a>
+        
+    </div>
+    <div class="slider">
+        <div class="slides">
+            <img src="moving_image1.png" alt="Slide 1">
+            <img src="moving_image3.png" alt="Slide 2">
+        </div>
+    </div>
+    <div class="dots">
+        <span class="dot active" onclick="currentSlide(0)"></span>
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+    </div>
+
+
+
+    <section id="first5">
+    <div class="recommended" id="recommended">
+        <h2>Recommended Movies</h2>
+        <div class="movie-list">
+            <a href="dragon.html" class="movie" data-title="dragon">
+                <img src="image1.png" alt="Dragon">
+                <div class="movie-info">Dragon</div>
+            </a>
+            <a href="empuraan.html" class="movie" data-title="empuraan">
+                <img src="image2.png" alt="Empuraan">
+                <div class="movie-info">Empuraan</div>
+            </a>
+            <a href="veeradheerasooran.html" class="movie" data-title="veera dheera sooran">
+                <img src="image3.png" alt="Veera Dheera Sooran">
+                <div class="movie-info">Veera Dheera Sooran</div>
+            </a>
+            <a href="interstellar.html" class="movie" data-title="interstellar">
+                <img src="image4.png" alt="Interstellar">
+                <div class="movie-info">Interstellar</div>
+            </a>
+            <a href="blackbag.html" class="movie" data-title="black bag">
+                <img src="image5.png" alt="Black Bag">
+                <div class="movie-info">Black Bag</div>
+            </a>
+        </div>
+    </div>
+
+    </section>
+    <section id="second5">
+    <div class="upcoming" id="upcoming">
+        <h2>Upcoming Movies</h2>
+        <div class="upcoming-list">
+            <a href="minecraft.html" class="movie" data-title="minecraft">
+                <img src="upcomingimage1.png"  alt="Minecraft">
+                <div class="movie-info">Minecraft</div>
+            </a>
+            <a href="veeramallu.html" class="movie" data-title="veeramallu">
+                <img src="upcomingimage2.png" alt="Veeramallu">
+                <div class="movie-info">Veeramallu</div>
+            </a>
+            <a href="good.html" class="movie" data-title="good bad ugly">
+                <img src="upcomingimage3.png" alt="Good Bad Ugly">
+                <div class="movie-info">Good Bad Ugly</div>
+            </a>
+            <a href="kantara.html" class="movie" data-title="kantara">
+                <img src="upcomingimage4.png" alt="Kantara">
+                <div class="movie-info">Kantara</div>
+            </a>
+            <a href="cool.html" class="movie" data-title="coolie">
+                <img src="upcomingimage5.png" alt="Coolie">
+                <div class="movie-info">Coolie</div>
+            </a>
+        </div>
+    </div>
+</section>
+<section id="third5">
+    <div class="Stream" id="streaming">
+        <h2>Streamings</h2>
+        <div class="stream-list">
+            <a href="robot.html" class="movie" data-title="the wild robot">
+                <img src="stream1.png" alt="The Wild Robot">
+                <div class="movie-info">The Wild Robot</div>
+            </a>
+            <a href="gun.html" class="movie" data-title="the guns of navarone">
+                <img src="stream2.png" alt="The Guns Of Navarone">
+                <div class="movie-info">The Guns Of Navarone</div>
+            </a>
+            <a href="taxi.html" class="movie" data-title="a taxi driver">
+                <img src="stream3.png" alt="A Taxi Driver">
+                <div class="movie-info">A Taxi Driver</div>
+            </a>
+            <a href="silent.html" class="movie" data-title="the silent prayer">
+                <img src="stream4.png" alt="The Silent Prayer">
+                <div class="movie-info">The Silent Prayer </div>
+            </a>
+            <a href="dog.html" class="movie" data-title="dog">
+                <img src="stream5.png" alt="Dog">
+                <div class="movie-info">Dog</div>
+            </a>
+        </div>
+    </div>
+</section>
+    
+    <div class="no-results" id="noResults">
+        No movies found matching your search.
+    </div>
+    
+    <div class="footer">
+        <p>BOOK YOUR TICKETS IN OFFER PRICE BY BEING OUR PREMIUM SUBSCRIBER.</p>
+        <div class="button1">
+            <input type="text" id="email" placeholder="Enter your email" style="width: 200px; height: 30px; border-radius: 5px; font-size: 15px;">
+            <br><br>
+            <input type="button" value="Subscribe" onclick="verifyEmail()" style="background-color: brown; color: white; border-radius: 5px; width: 100px; height: 30px; font-size: 15px; cursor: pointer;">
+            <p id="email-error" style="color: red; font-size: 14px; display: none;">Please enter a valid email address.</p>
+        </div>
+    </div>
+
+    <div class="footer-content">
+        <div>
+            <h3>Useful links</h3>
+            <ul>
+                <li><a href="About us.html">ABOUT US</a></li>
+            </ul>
+        </div>
+        <div>
+            <h3>Connect with Us</h3>
+            <div class="social-icons">
+                <a href="https://x.com/?lang=en">X</a>
+                <a href="https://www.instagram.com/accounts/login/?hl=en">Instagram</a>
+                <a href="https://www.facebook.com/">Facebook</a>
+                <a href="https://www.youtube.com/">YouTube</a>
+            </div>
+            <h3>Download "MovieMania"</h3>
+            <div class="app-buttons">
+                <a href="https://play.google.com/store/games?hl=en_IN"><img src="googleplay.png" alt="Google Play"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>"MovieMania" trademark is owned by RADO Industries Limited and licensed to its affiliates and subsidiaries. All rights reserved.</p>
+        <p><a href="#">Press release</a> | <a href="#">Regulatory</a> | <a href="#">Policies</a> | <a href="#">Terms & conditions</a></p>
+    </div>
+
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-content">
+            <span class="close-popup">×</span>
+            <h2>Sign In</h2>
+            <form class="signin-form">
+                <input type="text" placeholder="Email or Username" required>
+                <div class="error-message" id="usernameError">Please enter a valid username or email</div>
+                <input type="password" placeholder="Password" required>
+                <div class="error-message" id="passwordError">Password must be at least 6 characters</div>
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

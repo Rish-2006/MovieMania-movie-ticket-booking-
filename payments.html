@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment Page</title>
+  <link rel="stylesheet" href="payments css.css"/>
+</head>
+<body>
+  <a href="movies.html"><button id="back">←</button></a>
+  <h1>Complete Your Payment</h1>
+
+  <div class="payment-container">
+    <form id="paymentForm">
+      <p>Selected Seats: <span id="seatCount">0</span></p>
+      <p>Total Price: Rs<span id="totalPrice">0</span></p>
+
+      <label for="paymentMethod">Select Payment Method:</label>
+      <select id="paymentMethod" required>
+        <option value="card" style="color: black;">Debit/Credit Card</option>
+        <option value="razorpay" style="color: black;">Razorpay</option>
+      </select>
+
+      <div id="cardDetails">
+        <label>Card Number:</label>
+        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" autocomplete="cc-number" required />
+
+        <label>Expiration Date:</label>
+        <input type="month" id="expDate" autocomplete="cc-exp" required />
+
+        <label>CVV:</label>
+        <input type="text" id="cvv" placeholder="123" maxlength="3" autocomplete="cc-csc" required />
+      </div>
+
+      <div id="razorpayDetails" style="display: none;">
+        <label>Phone Number:</label>
+        <input type="tel" id="phoneNumber" placeholder="Enter phone number" maxlength="10" autocomplete="tel" />
+      </div>
+
+      <button type="submit" id="payBtn">Pay Now</button>
+    </form>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      document.getElementById("seatCount").textContent = params.get("seats") || 0;
+      document.getElementById("totalPrice").textContent = params.get("total") || 0;
+
+      const paymentMethod = document.getElementById("paymentMethod");
+      const cardDetails = document.getElementById("cardDetails");
+      const razorpayDetails = document.getElementById("razorpayDetails");
+      const paymentForm = document.getElementById("paymentForm");
+
+      const togglePaymentFields = () => {
+        if (paymentMethod.value === "razorpay") {
+          cardDetails.style.display = "none";
+          razorpayDetails.style.display = "block";
+          document.getElementById("cardNumber").required = false;
+          document.getElementById("expDate").required = false;
+          document.getElementById("cvv").required = false;
+          document.getElementById("phoneNumber").required = true;
+        } else {
+          cardDetails.style.display = "block";
+          razorpayDetails.style.display = "none";
+          document.getElementById("cardNumber").required = true;
+          document.getElementById("expDate").required = true;
+          document.getElementById("cvv").required = true;
+          document.getElementById("phoneNumber").required = false;
+        }
+      };
+
+      togglePaymentFields();
+
+      paymentMethod.addEventListener("change", togglePaymentFields);
+
+      paymentForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        if (paymentMethod.value === "card") {
+          const cardNumber = document.getElementById("cardNumber").value.replace(/\D/g, "");
+          const expDate = document.getElementById("expDate").value;
+          const cvv = document.getElementById("cvv").value.replace(/\D/g, "");
+          const currentDate = new Date();
+          const selectedDate = new Date(expDate + "-01");
+
+          if (cardNumber.length !== 16) {
+            alert("Invalid card number! It must be 16 digits.");
+            return;
+          }
+          if (!expDate || selectedDate <= currentDate) {
+            alert("Invalid expiration date! The card must be valid.");
+            return;
+          }
+          if (cvv.length !== 3) {
+            alert("Invalid CVV! It must be 3 digits.");
+            return;
+          }
+        } else if (paymentMethod.value === "razorpay") {
+          const phoneNumber = document.getElementById("phoneNumber").value.replace(/\D/g, "");
+          if (phoneNumber.length !== 10) {
+            alert("Invalid phone number! It must be 10 digits.");
+            return;
+          }
+        }
+
+        // ✅ If all validations passed
+        alert("🎉 Payment Successful! Booking Confirmed.");
+        window.location.href = "index1.html";
+      });
+    });
+  </script>
+</body>
+</html>

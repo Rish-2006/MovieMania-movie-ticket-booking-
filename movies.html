@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Movie Seat Booking</title>
+  <link rel="stylesheet" href="MOVIES CSS.css" />
+  <STYLE>
+     #back{
+            position: relative;
+            top: 48px;
+            right: 257px;
+            height: 40px;
+            width: 49px;
+            background:lightseagreen;
+            color: white;
+            border-radius: 5px;
+            border: none;
+        }
+  </STYLE>
+</head>
+<body>
+  <a href="index.html"><button id="back">←</button></a>
+  <h1>Movie Seat Selection</h1>
+  <p>Click on a seat to select/deselect.</p>
+
+  <div class="screen">Screen</div>
+
+  <div class="legend">
+    <div><span class="seat available"></span> Available</div>
+    <div><span class="seat selected"></span> Selected</div>
+    <div><span class="seat occupied"></span> Occupied</div>
+    <div><span class="seat vip"></span> VIP (200rs)</div>
+    <div><span class="seat economy"></span> Economy (100rs)</div>
+  </div>
+
+  <div class="seat-container"></div>
+
+  <p>Selected Seats: <span id="seatCount">0</span></p>
+  <p>Total Price: rs<span id="totalPrice">0</span></p>
+
+  <button id="checkoutBtn" disabled>Proceed to Checkout</button>
+
+  <!-- Payment Summary Modal -->
+  <div id="paymentModal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+       background: rgba(0,0,0,0.7); justify-content: center; align-items: center;">
+    <div style="background: white; color: black; padding: 20px 30px; border-radius: 10px; min-width: 300px;">
+      <h3>Payment Summary</h3>
+      <p id="modalQuantity"></p>
+      <p id="modalSeats"></p>
+      <p id="modalTotal"></p>
+      <div style="text-align: right;">
+        <button onclick="confirmPayment()">Confirm</button>
+        <button onclick="closeModal()" style="background-color: red;">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const seatContainer = document.querySelector(".seat-container");
+      const seatCount = document.getElementById("seatCount");
+      const totalPriceEl = document.getElementById("totalPrice");
+      const checkoutBtn = document.getElementById("checkoutBtn");
+      const modal = document.getElementById("paymentModal");
+      const modalQuantity = document.getElementById("modalQuantity");
+      const modalSeats = document.getElementById("modalSeats");
+      const modalTotal = document.getElementById("modalTotal");
+
+      const rows = 10;
+      const cols = 10;
+      let selectedSeats = 0;
+      let totalPrice = 0;
+      const seatPrices = { vip: 200, economy: 100, regular: 150 };
+
+      function updateDisplay() {
+        seatCount.textContent = selectedSeats;
+        totalPriceEl.textContent = totalPrice;
+        checkoutBtn.disabled = selectedSeats === 0;
+      }
+
+      for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+          const seat = document.createElement("div");
+          seat.classList.add("seat");
+
+          let seatType = "regular";
+          if (i === 0) {
+            seat.classList.add("vip");
+            seatType = "vip";
+          } else if (i === 1) {
+            seat.classList.add("economy");
+            seatType = "economy";
+          } else {
+            seat.classList.add("regular");
+          }
+
+          const seatId = `${String.fromCharCode(65 + i)}${j + 1}`;
+          seat.dataset.seatId = seatId;
+          seat.title = `Seat ${seatId} - ${seatType.toUpperCase()}`;
+
+          if (Math.random() < 0.2) {
+            seat.classList.add("occupied");
+          } else {
+            seat.addEventListener("click", () => {
+              if (!seat.classList.contains("occupied")) {
+                const type = seat.classList.contains("vip") ? "vip" :
+                             seat.classList.contains("economy") ? "economy" : "regular";
+
+                if (seat.classList.contains("selected")) {
+                  seat.classList.remove("selected");
+                  selectedSeats--;
+                  totalPrice -= seatPrices[type];
+                } else {
+                  seat.classList.add("selected");
+                  selectedSeats++;
+                  totalPrice += seatPrices[type];
+                }
+                updateDisplay();
+              }
+            });
+          }
+
+          seatContainer.appendChild(seat);
+        }
+      }
+
+      updateDisplay();
+
+      checkoutBtn.addEventListener("click", () => {
+        const selectedSeatsElements = document.querySelectorAll(".seat.selected");
+        const selectedSeatIds = Array.from(selectedSeatsElements).map(seat => seat.dataset.seatId);
+
+        modalQuantity.textContent = `Quantity: ${selectedSeatIds.length}`;
+        modalSeats.textContent = `Seats: ${selectedSeatIds.join(', ')}`;
+        modalTotal.textContent = `Total: Rs ${totalPrice}`;
+        modal.style.display = "flex";
+      });
+
+      window.closeModal = function () {
+        modal.style.display = "none";
+      };
+
+      window.confirmPayment = function () {
+        const selectedSeatsElements = document.querySelectorAll(".seat.selected");
+        const selectedSeatIds = Array.from(selectedSeatsElements).map(seat => seat.dataset.seatId);
+
+        const quantity = selectedSeatIds.length;
+        const seatList = selectedSeatIds.join(',');
+        const total = totalPrice;
+
+        window.location.href = `payments.html?total=${total}&seats=${seatList}&quantity=${quantity}`;
+      };
+    });
+  </script>
+
+</body>
+</html>

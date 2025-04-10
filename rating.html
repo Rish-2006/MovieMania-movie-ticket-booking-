@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rate Us</title>
+  <style>
+    * {
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      box-sizing: border-box;
+    }
+    body {
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #rating-container {
+      background: #222;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+      text-align: center;
+      color: white;
+      max-width: 400px;
+      width: 100%;
+      position: relative;
+    }
+
+    #rating-container h2 {
+      margin-bottom: 10px;
+      font-size: 24px;
+    }
+
+    #emoji {
+      font-size: 40px;
+      margin: 10px 0;
+      transition: transform 0.3s;
+    }
+
+    #stars {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .star {
+      font-size: 35px;
+      cursor: pointer;
+      color: gray;
+      transition: color 0.3s, transform 0.3s;
+    }
+
+    .star.hover,
+    .star.selected {
+      color: #f81f3f;
+      text-shadow: 0 0 10px #f81f3f;
+    }
+
+    button {
+      background: #fa0000;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #f81f3f;
+      transition: 0.4s;
+    }
+
+    #thank-you {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #00ff87;
+      display: none;
+    }
+
+    #reset-btn {
+      background: transparent;
+      border: none;
+      color: #999;
+      margin-top: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      display: none;
+    }
+
+    #reset-btn:hover {
+      color: white;
+    }
+    #back{
+            position: relative;
+            top: 48px;
+            right: 257px;
+            height: 40px;
+            width: 49px;
+            background:lightseagreen;
+            color: white;
+            border-radius: 5px;
+            border: none;
+        }
+  </style>
+</head>
+<body>
+  <a href="index.html">
+    <button id="back">←</button>
+  </a>
+  <div id="rating-container">
+    <h2>How was your experience?</h2>
+    <div id="emoji">🙂</div>
+    <div id="stars">
+      <span class="star" data-value="1">&#9733;</span>
+      <span class="star" data-value="2">&#9733;</span>
+      <span class="star" data-value="3">&#9733;</span>
+      <span class="star" data-value="4">&#9733;</span>
+      <span class="star" data-value="5">&#9733;</span>
+    </div>
+    <button onclick="submitRating()">Submit</button>
+    <div id="thank-you">Thank you for giving us the rating! </div>
+    <button id="reset-btn" onclick="resetRating()">Rate Again</button>
+  </div>
+
+  <script>
+    const stars = document.querySelectorAll('.star');
+    const emoji = document.getElementById('emoji');
+    const thankYou = document.getElementById('thank-you');
+    const resetBtn = document.getElementById('reset-btn');
+    let selectedRating = 0;
+
+    const emojiFaces = ["😠", "😞", "😐", "😊", "😍"];
+
+    stars.forEach((star) => {
+      const value = parseInt(star.getAttribute('data-value'));
+
+      star.addEventListener('mouseover', () => {
+        updateStars(value);
+        emoji.textContent = emojiFaces[value - 1];
+        emoji.style.transform = 'scale(1.2)';
+      });
+
+      star.addEventListener('mouseout', () => {
+        updateStars(selectedRating);
+        emoji.textContent = selectedRating > 0 ? emojiFaces[selectedRating - 1] : "🙂";
+        emoji.style.transform = 'scale(1)';
+      });
+
+      star.addEventListener('click', () => {
+        selectedRating = value;
+        updateStars(selectedRating);
+        emoji.textContent = emojiFaces[selectedRating - 1];
+      });
+    });
+
+    function updateStars(rating) {
+      stars.forEach((s) => {
+        const sVal = parseInt(s.getAttribute('data-value'));
+        s.classList.toggle('selected', sVal <= rating);
+      });
+    }
+
+    function submitRating() {
+      if (selectedRating === 0) return;
+      thankYou.style.display = 'block';
+      resetBtn.style.display = 'inline';
+    }
+
+    function resetRating() {
+      selectedRating = 0;
+      updateStars(0);
+      emoji.textContent = "🙂";
+      thankYou.style.display = 'none';
+      resetBtn.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
